@@ -17,7 +17,7 @@ function Login() {
 
     try {
       // Make a POST request to your backend for user authentication
-      const response = await fetch('https://amynalqrby4-8181.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/auth/login', {
+      const response = await fetch('https://pabloprobost-8181.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

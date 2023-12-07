@@ -5,7 +5,7 @@ import './App.css';
 import Navbar from './Components/Navbar/Navbar';
 import Login from './Components/Login/Login';
 import SignUp from './Components/SignUp/SignUp';
-import Landing_Page from './Components/Landing_Page/LandingPage';
+import LandingPage from './Components/LandingPage/LandingPage';
 import InstantConsultation from './Components/InstantConsultationBooking/InstantConsultation';
 
 
@@ -20,7 +20,7 @@ function App() {
               <Route path="/Login" element={<Login/>}/>
               <Route path="/SignUp" element={<SignUp/>}/>
               <Route path="/Navbar" element={<Navbar/>}/>
-              <Route path="/Landing_Page" element={<Landing_Page/>}/>
+              <Route path="/LandingPage" element={<LandingPage/>}/>
               </Routes>
             
         </BrowserRouter>

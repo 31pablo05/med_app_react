@@ -51,7 +51,7 @@ function SignUp() {
     // If all validations are successful, you can proceed with form submission
     // Make a POST request to the registration endpoint
     try {
-      const response = await fetch('https://pabloprobost-8181.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/', {
+      const response = await fetch("https://pabloprobost-3000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/signup", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
