@@ -1,29 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import "./Navbar.css";
-
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './Navbar.css';
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
 
+  const navigate = useNavigate();
+
   const handleClick = () => setClick(!click);
 
   const handleLogout = () => {
-    // Clear user data and log the user out
+    // Limpiar datos del usuario y cerrar sesión
     sessionStorage.removeItem("auth-token");
     sessionStorage.removeItem("name");
     sessionStorage.removeItem("email");
     sessionStorage.removeItem("phone");
-    // Remove other user data if needed
+    // Eliminar otros datos del usuario si es necesario
 
-    // Update the state to reflect the user's logout status
+    // Actualizar el estado para reflejar el estado de cierre de sesión del usuario
     setIsLoggedIn(false);
     setUsername("");
+
+    // Redirigir a la página de inicio
+    navigate("/");
   };
 
   useEffect(() => {
-    // Check if the user is logged in
+    // Comprobar si el usuario ha iniciado sesión
     const storedUsername = sessionStorage.getItem("name");
 
     if (storedUsername) {
@@ -46,15 +50,7 @@ const Navbar = () => {
         <li className="link">
           <Link to="/">Home</Link>
         </li>
-        <li className="link">
-          <Link to="/search/doctors">Appointments</Link>
-        </li>
-        <li className="link">
-          <Link to="/healthblog">Health Blog</Link>
-        </li>
-        <li className="link">
-          <Link to="/reviews">Reviews</Link>
-        </li>
+        {/* Otras opciones del menú */}
         {isLoggedIn ? (
           <>
             <li className="link">
