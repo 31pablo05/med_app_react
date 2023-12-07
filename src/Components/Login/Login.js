@@ -1,89 +1,83 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { API_URL } from '../../config';
-import './Login.css';
-const Login = () => {
-  const [password, setPassword] = useState("");
+import React, { useState } from 'react';
+import './Login.css'; // Import your CSS file
+
+function Login() {
+  const [user, setUser] = useState(null);
   const [email, setEmail] = useState('');
-  const [showerr, setShowerr] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Verificar si el usuario ya ha iniciado sesión al cargar el componente
-    if (sessionStorage.getItem("auth-token")) {
-      navigate("/"); // Redirigir a la página de inicio si ya ha iniciado sesión
-    }
-  }, [navigate]);
-
-  const login = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      setError('Email and password are required');
+      return;
+    }
+
     try {
-      // Llamada a la API para iniciar sesión
-      const res = await fetch(`${API_URL}/api/auth/login`, {
-        method: "POST",
+      // Make a POST request to your backend for user authentication
+      const response = await fetch('https://amynalqrby4-8181.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/auth/login', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
+        body: JSON.stringify({ email, password }),
       });
 
-      const json = await res.json();
-
-      if (json.authtoken) {
-        // Guardar el token de autenticación y otros detalles del usuario en sessionStorage
-        sessionStorage.setItem('auth-token', json.authtoken);
-        sessionStorage.setItem('email', email);
-
-        // Redirigir a la página de inicio
-        navigate('/');
-        window.location.reload();
+      if (response.ok) {
+        const userData = await response.json();
+        setUser(userData);
       } else {
-        // Mostrar mensajes de error
-        if (json.errors) {
-          for (const error of json.errors) {
-            alert(error.msg);
-          }
-        } else {
-          alert(json.error);
-        }
+        const errorData = await response.json();
+        setError(errorData.error);
       }
     } catch (error) {
-      console.error("Error durante el inicio de sesión:", error);
-      // Manejar el error de manera apropiada (puede mostrar un mensaje de error al usuario, por ejemplo)
+      setError('An error occurred. Please try again.');
     }
   };
 
+  const handleLogout = () => {
+    // Handle user logout, e.g., by clearing user data and session
+    setUser(null);
+    setEmail('');
+    setPassword('');
+  };
+
   return (
-    <div>
-      <div className="container">
+    <div className="container">
+      {user ? (
+        <div className="login-success">
+          <h2>Welcome, {user.name}!</h2>
+          <button className="btn btn-danger" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+      ) : (
         <div className="login-grid">
           <div className="login-text">
             <h2>Login</h2>
           </div>
           <div className="login-text">
-            ¿Eres un nuevo miembro?{' '}
+            Are you a new member?{' '}
             <span>
-              <Link to="/signup" style={{ color: '#2190FF' }}>
+              <a href="../Sign_Up/Sign_Up.html" style={{ color: '#2190FF' }}>
                 Sign Up Here
-              </Link>
+              </a>
             </span>
           </div>
           <br />
           <div className="login-form">
-            <form onSubmit={login}>
+            <form onSubmit={handleLogin}>
+              {error && <div className="error">{error}</div>}
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   name="email"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="form-control"
                   placeholder="Enter your email"
                   aria-describedby="helpId"
@@ -92,28 +86,38 @@ const Login = () => {
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   name="password"
                   id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="form-control"
                   placeholder="Enter your password"
                   aria-describedby="helpId"
                 />
               </div>
-              {/* Otros campos del formulario, si es necesario */}
               <div className="btn-group">
-                <button type="submit" className="btn btn-primary mb-2 mr-1 waves-effect waves-light">
+                <button
+                  type="submit"
+                  className="btn btn-primary mb-2 mr-1 waves-effect waves-light"
+                >
                   Login
                 </button>
+                <button
+                  type="reset"
+                  className="btn btn-danger mb-2 waves-effect waves-light"
+                >
+                  Reset
+                </button>
               </div>
+              <br />
+              <div className="login-text">Forgot Password?</div>
             </form>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
-};
+}
 
 export default Login;

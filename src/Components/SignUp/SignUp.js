@@ -1,116 +1,201 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { API_URL } from '../../config';
-import './SignUp.css';
+import './SignUp.css'; // Import your CSS file
 
-const SignUp = () => {
+function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
-  const [showerr, setShowerr] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [phoneError, setPhoneError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
-  const navigate = useNavigate();
-
-  const register = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // API Call
-    const response = await fetch(`${API_URL}/api/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        password: password,
-        phone: phone,
-      }),
-    });
-
-    const json = await response.json();
-
-    if (json.authtoken) {
-      sessionStorage.setItem("auth-token", json.authtoken);
-      sessionStorage.setItem("name", name);
-      sessionStorage.setItem("phone", phone);
-      sessionStorage.setItem("email", email);
-
-      // Redirigir a la página de inicio
-      navigate("/");
-      window.location.reload();
+    // Validation: Check if the name is at least 4 characters
+    if (name.length < 4) {
+      setNameError('Name should be at least 4 characters');
+      return;
     } else {
-      if (json.errors) {
-        for (const error of json.errors) {
-          setShowerr(error.msg);
-        }
-      } else {
-        setShowerr(json.error);
-      }
+      setNameError('');
     }
+
+    // Validation: Check if the email is valid
+    if (!validateEmail(email)) {
+      setEmailError('Invalid email format');
+      return;
+    } else {
+      setEmailError('');
+    }
+
+    // Validation: Check if the phone number has exactly 10 digits
+    const phoneNumberPattern = /^\d{10}$/;
+    if (!phoneNumberPattern.test(phoneNumber)) {
+      setPhoneError('Phone number must have exactly 10 digits');
+      return;
+    } else {
+      setPhoneError('');
+    }
+
+    // Validation: Check if the password has at least 8 characters
+    if (password.length < 8) {
+      setPasswordError('Password must be at least 8 characters');
+      return;
+    } else {
+      setPasswordError('');
+    }
+
+    // If all validations are successful, you can proceed with form submission
+    // Make a POST request to the registration endpoint
+    try {
+      const response = await fetch('https://pabloprobost-8181.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: phoneNumber,
+          password: password,
+        }),
+      });
+
+      if (response.ok) {
+        // Registration successful
+        setRegistrationSuccess(true);
+      } else {
+        // Registration failed, handle errors
+        console.error('Registration failed');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  // Function to validate email format
+  const validateEmail = (email) => {
+    const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    return emailPattern.test(email);
   };
 
   return (
     <div className="container" style={{ marginTop: '5%' }}>
       <div className="signup-grid">
+        <div className="signup-text">
+          <h1>Sign Up</h1>
+        </div>
         <div className="signup-form">
-          <form method="POST" onSubmit={register}>
-            <div className="form-group">
+          <form onSubmit={handleSubmit}>
+            <div className={`form-group ${nameError ? 'has-error' : ''}`}>
               <label htmlFor="name">Name</label>
               <input
-                value={name}
                 type="text"
-                onChange={(e) => setName(e.target.value)}
                 name="name"
                 id="name"
-                className="form-control"
+                required
+                className={`form-control ${nameError ? 'is-invalid' : ''}`}
                 placeholder="Enter your name"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setNameError('');
+                }}
                 aria-describedby="helpId"
               />
+              {nameError && (
+                <div className="invalid-feedback" style={{ color: 'red' }}>
+                  {nameError}
+                </div>
+              )}
             </div>
-            <div className="form-group">
+            <div className={`form-group ${emailError ? 'has-error' : ''}`}>
               <label htmlFor="email">Email</label>
               <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 name="email"
                 id="email"
-                className="form-control"
+                required
+                className={`form-control ${emailError ? 'is-invalid' : ''}`}
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setEmailError('');
+                }}
                 aria-describedby="helpId"
               />
+              {emailError && (
+                <div className="invalid-feedback" style={{ color: 'red' }}>
+                  {emailError}
+                </div>
+              )}
             </div>
-            <div className="form-group">
+            <div className={`form-group ${phoneError ? 'has-error' : ''}`}>
               <label htmlFor="phone">Phone</label>
               <input
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
                 type="tel"
                 name="phone"
                 id="phone"
-                className="form-control"
+                required
+                className={`form-control ${phoneError ? 'is-invalid' : ''}`}
                 placeholder="Enter your phone number"
+                value={phoneNumber}
+                onChange={(e) => {
+                  setPhoneNumber(e.target.value);
+                  setPhoneError('');
+                }}
                 aria-describedby="helpId"
               />
+              {phoneError && (
+                <div className="invalid-feedback" style={{ color: 'red' }}>
+                  {phoneError}
+                </div>
+              )}
             </div>
-            <div className="form-group">
+            <div className={`form-group ${passwordError ? 'has-error' : ''}`}>
               <label htmlFor="password">Password</label>
               <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 name="password"
                 id="password"
-                className="form-control"
+                required
+                className={`form-control ${passwordError ? 'is-invalid' : ''}`}
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setPasswordError('');
+                }}
                 aria-describedby="helpId"
               />
+              {passwordError && (
+                <div className="invalid-feedback" style={{ color: 'red' }}>
+                  {passwordError}
+                </div>
+              )}
             </div>
-            {showerr && <div className="err" style={{ color: 'red' }}>{showerr}</div>}
-            <button type="submit" className="btn1">Sign Up</button>
+            <div className="btn-group">
+              <button
+                type="submit"
+                className="btn btn-primary mb-2 mr-1 waves-effect waves-light"
+              >
+                Submit
+              </button>
+              <button
+                type="reset"
+                className="btn btn-danger mb-2 waves-effect waves-light"
+              >
+                Reset
+              </button>
+            </div>
           </form>
+          {registrationSuccess && (
+            <div className="success-message">Registration successful!</div>
+          )}
         </div>
       </div>
     </div>
