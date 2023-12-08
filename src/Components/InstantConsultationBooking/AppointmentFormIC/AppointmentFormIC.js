@@ -7,10 +7,21 @@ const AppointmentFormIC = ({ doctorName, doctorSpeciality, onSubmit, onSlotSelec
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+    if (!isValidPhoneNumber(phoneNumber)) {
+      console.error('Número de teléfono no válido');
+      return;
+    }
+
     onSubmit({ name, phoneNumber, selectedSlot });
     setName('');
     setPhoneNumber('');
     setSelectedSlot(null);
+  };
+
+  const isValidPhoneNumber = (number) => {
+    const phonePattern = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+    return phonePattern.test(number);
   };
 
   return (
@@ -32,10 +43,10 @@ const AppointmentFormIC = ({ doctorName, doctorSpeciality, onSubmit, onSlotSelec
           id="phoneNumber"
           value={phoneNumber}
           onChange={(e) => setPhoneNumber(e.target.value)}
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           required
         />
       </div>
-      {/* Agregamos un campo de selección de slot */}
       <div className="form-group">
         <label htmlFor="selectedSlot">Select a Slot:</label>
         <input
@@ -45,7 +56,6 @@ const AppointmentFormIC = ({ doctorName, doctorSpeciality, onSubmit, onSlotSelec
           onChange={(e) => setSelectedSlot(e.target.value)}
         />
       </div>
-      {/* Llamamos a onSlotSelection cuando cambia el valor de selectedSlot */}
       <button type="button" onClick={() => onSlotSelection(selectedSlot)}>
         Select Slot
       </button>

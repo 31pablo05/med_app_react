@@ -1,49 +1,70 @@
 .container {
     max-width: 900px;
-    margin: 0 auto;
+    margin: 10% auto; /* Ajuste el margen superior según su diseño */
     padding: 40px;
-    margin-top: 10%;
-   
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+}
 
-  
-  .form-group {
+.login-grid {
+    width: 100%; /* Ajusta el ancho al 100% para ocupar todo el contenedor */
+}
+
+.form-group {
     margin-bottom: 20px;
-  }
-  
-  .form-group label {
+}
+
+.form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px; /* Mayor espacio entre etiquetas y campos de entrada */
     font-weight: bold;
-  }
-  
-  .form-control {
-    width: 40%;
-    padding: 8px;
+    font-size: 16px; /* Tamaño de fuente para etiquetas */
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px; /* Aumenta el relleno para una apariencia más espaciada */
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
-  }
-  
-  .btn-group {
-    margin-top: .0001px;
+    transition: border-color 0.3s ease; /* Transición suave para cambios de color de borde */
+}
+
+.form-control:focus {
+    border-color: #2190ff; /* Cambia el color del borde al enfocarse */
+}
+
+.btn-group {
+    margin-top: 10px; /* Mayor espacio entre los botones y otros elementos */
     margin-bottom: 20px;
-  }
-  
-  .btn {
-    padding: 10px 20px;
+}
+
+.btn {
+    padding: 12px 24px; /* Aumenta el relleno para una apariencia más grande */
     font-size: 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
-  .btn-primary {
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transiciones suaves */
+}
+
+.btn-primary {
     background-color: #007bff;
     color: #fff;
-  }
-  
-  .btn-danger {
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #0056b3; /* Cambia el color al pasar el ratón o enfocarse */
+}
+
+.btn-danger {
     background-color: #dc3545;
     color: #fff;
-  }
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+    background-color: #bd2130; /* Cambia el color al pasar el ratón o enfocarse */
+}

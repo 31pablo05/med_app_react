@@ -1,82 +1,45 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import './InstantConsultation.css';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import FindDoctorSearchIC from './FindDoctorSearchIC/FindDoctorSearchIC';
-import DoctorCardIC from './DoctorCardIC/DoctorCardIC';
+// InstantConsultation.js
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const InstantConsultation = () => {
-    const [searchParams] = useSearchParams();
-    const [doctors, setDoctors] = useState([]);
-    const [filteredDoctors, setFilteredDoctors] = useState([]);
-    const [isSearched, setIsSearched] = useState(false);
-    const navigate = useNavigate();
-
-    const getDoctorsDetails = useCallback(async () => {
-        try {
-            const response = await fetch('https://api.npoint.io/9a5543d36f1460da2f63');
-            const data = await response.json();
-
-            if (searchParams.get('speciality')) {
-                const filtered = data.filter(doctor => doctor.speciality.toLowerCase() === searchParams.get('speciality').toLowerCase());
-                setFilteredDoctors(filtered);
-                setIsSearched(true);
-                window.location.reload();
-            } else {
-                setFilteredDoctors([]);
-                setIsSearched(false);
-            }
-
-            setDoctors(data);
-        } catch (error) {
-            console.error('Error fetching doctor details:', error);
-        }
-    }, [searchParams]);
-
-    const handleSearch = (searchText) => {
-        if (searchText === '') {
-            setFilteredDoctors([]);
-            setIsSearched(false);
-        } else {
-            const filtered = doctors.filter(doctor =>
-                doctor.speciality.toLowerCase().includes(searchText.toLowerCase())
-            );
-
-            setFilteredDoctors(filtered);
-            setIsSearched(true);
-            window.location.reload();
-        }
-    };
-
-    useEffect(() => {
-        const fetchDoctors = async () => {
-            await getDoctorsDetails();
-        };
-
-        fetchDoctors();
-    }, [getDoctorsDetails, searchParams, navigate]);
-
-    return (
-        <center>
-            <div className="searchpage-container">
-                <FindDoctorSearchIC onSearch={handleSearch} />
-                <div className="search-results-container">
-                    {isSearched ? (
-                        <center>
-                            <h2>{filteredDoctors.length} doctors are available {searchParams.get('location')}</h2>
-                            <h3>Book appointments with minimum wait-time & verified doctor details</h3>
-                            {filteredDoctors.length > 0 ? (
-                                filteredDoctors.map(doctor => <DoctorCardIC className="doctorcard" {...doctor} key={doctor.name} />)
-                            ) : (
-                                <p>No doctors found.</p>
-                            )}
-                        </center>
-                    ) : (
-                        ''
-                    )}
-                </div>
-            </div>
-        </center>
-    );
+/**
+ * Componente para mostrar una lista de médicos filtrados.
+ * @param {Object[]} filteredDoctors - Lista de médicos filtrados.
+ * @returns {JSX.Element} - Elemento de React para mostrar la lista de médicos.
+ */
+function InstantConsultation({ filteredDoctors }) {
+  return (
+    <div>
+      <h2>Instant Consultation</h2>
+      {filteredDoctors.length === 0 ? (
+        <p>No hay médicos disponibles en este momento.</p>
+      ) : (
+        <ul>
+          {filteredDoctors.map((doctor) => (
+            <li key={doctor.id}>
+              <div>
+                <h3>{doctor.name || 'Nombre no disponible'}</h3>
+                <p>Especialidad: {doctor.speciality || 'Especialidad no disponible'}</p>
+                {/* Agrega más detalles del médico según sea necesario */}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+      {/* Agrega más contenido según sea necesario */}
+    </div>
+  );
 }
+
+InstantConsultation.propTypes = {
+  filteredDoctors: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string,
+      speciality: PropTypes.string,
+      // Agrega más propTypes según sea necesario
+    })
+  ).isRequired,
+};
 
 export default InstantConsultation;
