@@ -3,20 +3,22 @@ import React, { useState } from 'react';
 const AppointmentFormIC = ({ doctorName, doctorSpeciality, onSubmit, onSlotSelection }) => {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [selectedSlot, setSelectedSlot] = useState('');
+  const [error, setError] = useState('');
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
     if (!isValidPhoneNumber(phoneNumber)) {
-      console.error('Número de teléfono no válido');
+      setError('Please enter a valid phone number (e.g., 123-456-7890).');
       return;
     }
 
     onSubmit({ name, phoneNumber, selectedSlot });
     setName('');
     setPhoneNumber('');
-    setSelectedSlot(null);
+    setSelectedSlot('');
+    setError('');
   };
 
   const isValidPhoneNumber = (number) => {
@@ -26,6 +28,8 @@ const AppointmentFormIC = ({ doctorName, doctorSpeciality, onSubmit, onSlotSelec
 
   return (
     <form onSubmit={handleFormSubmit} className="appointment-form">
+      {error && <div className="error-message">{error}</div>}
+      
       <div className="form-group">
         <label htmlFor="name">Name:</label>
         <input
