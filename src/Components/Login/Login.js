@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Login.css'; // Importa tu archivo CSS
+import './Login.css'; // Import your CSS file
 
 function Login() {
   const [user, setUser] = useState(null);
@@ -17,8 +16,8 @@ function Login() {
     }
 
     try {
-      // Realiza una solicitud POST a tu backend para la autenticación del usuario
-      const response = await fetch('https://tu-backend-url.com/login', {
+      // Make a POST request to your backend for user authentication
+      const response = await fetch('https://amynalqrby4-8181.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,7 +38,7 @@ function Login() {
   };
 
   const handleLogout = () => {
-    // Maneja el cierre de sesión del usuario, por ejemplo, limpiando los datos del usuario y la sesión
+    // Handle user logout, e.g., by clearing user data and session
     setUser(null);
     setEmail('');
     setPassword('');
@@ -62,10 +61,9 @@ function Login() {
           <div className="login-text">
             Are you a new member?{' '}
             <span>
-              {/* Utiliza un enlace de React para la navegación interna */}
-              <Link to="/signup" style={{ color: '#2190FF' }}>
+              <a href="../Sign_Up/Sign_Up.html" style={{ color: '#2190FF' }}>
                 Sign Up Here
-              </Link>
+              </a>
             </span>
           </div>
           <br />
@@ -101,24 +99,19 @@ function Login() {
               <div className="btn-group">
                 <button
                   type="submit"
-                  className="btn btn-primary waves-effect waves-light"
+                  className="btn btn-primary mb-2 mr-1 waves-effect waves-light"
                 >
                   Login
                 </button>
                 <button
                   type="reset"
-                  className="btn btn-danger waves-effect waves-light"
+                  className="btn btn-danger mb-2 waves-effect waves-light"
                 >
                   Reset
                 </button>
               </div>
               <br />
-              <div className="login-text">
-                {/* Agrega un enlace o mensaje para la recuperación de contraseña */}
-                <Link to="/forgot-password" style={{ color: '#2190FF' }}>
-                  Forgot Password?
-                </Link>
-              </div>
+              <div className="login-text">Forgot Password?</div>
             </form>
           </div>
         </div>

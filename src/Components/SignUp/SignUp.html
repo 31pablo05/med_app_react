@@ -3,87 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="./SignUp.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="./Sign_Up.css">
 </head>
 <body>
     <div class="container" style="margin-top: 5%;">
         <div class="signup-grid">
             <div class="signup-text">
                 <h1>Sign Up</h1>
+
             </div>
             <div class="signup-text1" style="text-align: left;">
                 Already a member? <span><a href="../Login/Login.html" style="color: #2190FF;"> Login</a></span>
             </div>
             <div class="signup-form">
-                <form id="signup-form">
+                <form>
+
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" name="name" id="name" required class="form-control" placeholder="Enter your name" aria-describedby="name-help" />
-                        <small id="name-help">Your full name.</small>
-                    </div>
+                        <input type="text" name="name" id="name" required class="form-control" placeholder="Enter your name" aria-describedby="helpId" />
+
                     <div class="form-group">
                         <label for="phone">Phone</label>
-                        <input type="tel" name="phone" id="phone" required class="form-control" placeholder="Enter your phone number" aria-describedby="phone-help" />
-                        <small id="phone-help">Enter a valid 10-digit phone number.</small>
+                        <input type="tel" name="phone" id="phone" required class="form-control" placeholder="Enter your phone number" aria-describedby="helpId" />
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" required class="form-control" placeholder="Enter your email" aria-describedby="email-help" />
-                        <small id="email-help">Enter a valid email address.</small>
+                        <input type="email" name="email" id="email" required class="form-control" placeholder="Enter your email" aria-describedby="helpId" />
+
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" name="password" id="password" required class="form-control" placeholder="Enter your password" aria-describedby="password-help" />
-                        <small id="password-help">Password must be at least 8 characters.</small>
+                        <input name="password" id="password" required class="form-control" placeholder="Enter your password" aria-describedby="helpId" />
+
+
                     </div>
-                    <!-- Confirmación de contraseña -->
-                    <div class="form-group">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input type="password" name="confirm-password" id="confirm-password" required class="form-control" placeholder="Confirm your password" aria-describedby="confirm-password-help" />
-                        <small id="confirm-password-help">Re-enter your password for confirmation.</small>
-                    </div>
-                    <!-- Sección para mostrar mensajes de error -->
-                    <div id="error-message" style="color: red;"></div>
                     <div class="btn-group">
-                        <!-- Llama a la función validateForm al hacer clic en el botón -->
-                        <button type="button" onclick="validateForm()" class="btn btn-primary mb-2 mr-1 waves-effect waves-light">Submit</button>
+                        <button type="submit" class="btn btn-primary mb-2 mr-1 waves-effect waves-light">Submit</button>
                         <button type="reset" class="btn btn-danger mb-2 waves-effect waves-light">Reset</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <script>
-        function validateForm() {
-            // Lógica de validación del lado del cliente
-            const errorMessage = document.getElementById('error-message');
-            errorMessage.textContent = ''; // Limpia cualquier mensaje de error existente
-
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-
-            // Validación básica, puedes añadir más validaciones según tus requisitos
-            if (name.length < 4) {
-                errorMessage.textContent = 'Name should be at least 4 characters';
-                return;
-            }
-
-            // Verifica que la contraseña y la confirmación coincidan
-            if (password !== confirmPassword) {
-                errorMessage.textContent = 'Passwords do not match';
-                return;
-            }
-
-            // Agrega más validaciones según sea necesario...
-
-            // Si todas las validaciones son exitosas, puedes enviar el formulario
-            document.getElementById('signup-form').submit();
-        }
-    </script>
 </body>
 </html>

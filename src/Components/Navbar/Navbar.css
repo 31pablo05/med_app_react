@@ -1,8 +1,8 @@
-/* Header - Navbar */
+/** Header - Navbar */
 nav {
     padding: 1.5rem;
     position: fixed;
-    top: 0;
+    top: 0%;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -10,10 +10,7 @@ nav {
     align-items: center;
     justify-content: space-between;
     background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
   }
-  
   .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -39,7 +36,7 @@ nav {
   .dropdown-menu li {
     display: block;
     width: 150px;
-    padding: 5px;
+    padding:5px;
   }
   
   .dropdown-menu li a {
@@ -51,7 +48,6 @@ nav {
   .dropdown-menu li a:hover {
     color: #2190ff;
   }
-  
   .nav__logo {
     font-size: 2rem;
     font-weight: 600;
@@ -89,6 +85,7 @@ nav {
   }
   
   /* Media queries for mobile responsiveness */
+  
   @media (max-width: 768px) {
     .nav__logo {
       margin-right: auto;
@@ -108,7 +105,7 @@ nav {
     .nav__links.active {
       display: flex;
       position: absolute;
-      top: 65px; /* Ajusta la posición del menú en dispositivos móviles */
+      top: 100%;
       left: 0;
       width: 100%;
       margin: auto;
@@ -122,46 +119,42 @@ nav {
       animation: slideDown 0.5s ease-in-out;
     }
   }
-  
-  /* Animation keyframes */
+  /* Animation keyframes*/
   @keyframes slideDown {
-    0% {
-      transform: translateY(-10px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
+      0% {
+          transform: translateY(-10px);
+          opacity: 0;
+      }
+      100% {
+          transform: translateY(0);
+          opacity: 1;
+      }
   }
-  
-  .btn1 {
+  .btn1{
     border: 2px solid #3685fb;
     background-color: white;
     color: black;
     border-radius: 50px;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Añade transiciones suaves */
   }
   
-  .btn1:hover {
+  .btn1:hover{
     background-color: #3685fb;
     color: white;
   }
   
-  .btn2 {
+  .btn2{
     border: 2px solid #3685fb;
     background-color: white;
     color: black;
     border-radius: 50px;
-    height: 30px;
+    height:30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 3px;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Añade transiciones suaves */
+    margin-top:3px;
   }
   
-  .btn2:hover {
+  .btn2:hover{
     background-color: #3685fb;
     color: white;
   }

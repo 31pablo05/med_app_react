@@ -1,26 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState(null);
+  const [click, setClick] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
 
-  const toggleMobileMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
+  const handleClick = () => setClick(!click);
 
   const handleLogout = () => {
-    // Limpiar la información del usuario y cerrar la sesión
-    setUser(null);
-    // Limpiar el usuario almacenado en localStorage al cerrar la sesión
-    localStorage.removeItem("user");
+    // Clear user data and log the user out
+    sessionStorage.removeItem("auth-token");
+    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("email");
+    sessionStorage.removeItem("phone");
+    // Remove other user data if needed
+
+    // Update the state to reflect the user's logout status
+    setIsLoggedIn(false);
+    setUsername("");
   };
 
   useEffect(() => {
-    // Verificar si el usuario está autenticado
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    // Check if the user is logged in
+    const storedUsername = sessionStorage.getItem("name");
 
-    if (storedUser) {
-      setUser(storedUser);
+    if (storedUsername) {
+      setIsLoggedIn(true);
+      setUsername(storedUsername);
     }
   }, []);
 
@@ -28,18 +36,29 @@ const Navbar = () => {
     <nav>
       <div className="nav__logo">
         <Link to="/">StayHealthy</Link>
-        <i className="fa fa-user-md" style={{ color: "#2190FF" }}></i>
+        <i style={{ color: "#2190FF" }} className="fa fa-user-md"></i>
         <span>.</span>
       </div>
-      <div className="nav__icon" onClick={toggleMobileMenu}>
-        <i className={isMobileMenuOpen ? "fa fa-times" : "fa fa-bars"}></i>
+      <div className="nav__icon" onClick={handleClick}>
+        <i className={click ? "fa fa-times" : "fa fa-bars"}></i>
       </div>
-      <ul className={isMobileMenuOpen ? "nav__links active" : "nav__links"}>
-        {/* ... Otras opciones del menú ... */}
-        {user ? (
+      <ul className={click ? "nav__links active" : "nav__links"}>
+        <li className="link">
+          <Link to="/">Home</Link>
+        </li>
+        <li className="link">
+          <Link to="/search/doctors">Appointments</Link>
+        </li>
+        <li className="link">
+          <Link to="/healthblog">Health Blog</Link>
+        </li>
+        <li className="link">
+          <Link to="/reviews">Reviews</Link>
+        </li>
+        {isLoggedIn ? (
           <>
             <li className="link">
-              Welcome, {user.username}
+              Welcome, {username}
             </li>
             <li className="link">
               <button className="btn2" onClick={handleLogout}>
