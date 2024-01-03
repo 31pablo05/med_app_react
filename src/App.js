@@ -8,7 +8,7 @@ import InstantConsultation from './Components/InstantConsultationBooking/Instant
 import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch';
 import BookingConsultation from './Components/BookingConsultation';
 import Notification from './Components/Navbar/Notification/Notification';
-import ReviewFrom from './Components/ReviewForm/ReviewForm';
+import ReviewForm from './Components/ReviewForm/ReviewForm';
 import ProfileForm from './Components/ProfileCard/ProfileCard';
 import ReportsLayout from './Components/ReportsLayout/ReportsLayout';
 
@@ -22,10 +22,10 @@ function App() {
                         <Route path="/LandingPage" element={<LandingPage />} />
                         <Route path="/SignUp" element={<SignUp />} />
                         <Route path="/Login" element={<Login />} />
-                        <Route path="/instant-consultation" element={<InstantConsultation />} />
-                        <Route path='/finddoctor' element={<FindDoctorSearch />} />
+                        <Route path="/instantConsultation" element={<InstantConsultation />} />
+                        <Route path='/findDoctor' element={<FindDoctorSearch />} />
                         <Route path='/search/doctors' element={<BookingConsultation />} />
-                        <Route path='/reviews' element={<ReviewFrom />} />
+                        <Route path='/reviews' element={<ReviewForm />} />
                         <Route path='/profile' element={<ProfileForm />} />
                         <Route path='/reports' element={<ReportsLayout />} />                    </Routes>
                 </Notification>

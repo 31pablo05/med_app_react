@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import GiveReviews from './GiveReviews';
+import GiveReviews from './GiveReviewsForm';
 import Popup from 'reactjs-popup';
 import { useNavigate } from 'react-router-dom';
 import "./ReviewForm.css"

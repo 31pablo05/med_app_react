@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './GiveReviews.css';
+import './GiveReviewsForm.css';
+
+
 
 const GiveReviews = ({ serialNumber, onReviewSubmit, review }) => {
     const [formData, setFormData] = useState({
