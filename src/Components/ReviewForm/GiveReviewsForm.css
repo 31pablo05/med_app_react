@@ -1,0 +1,94 @@
+.container {
+    max-width: 400px;
+    margin: 10% auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.warning {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.star-rating {
+    display: flex;
+}
+
+.star-rating label {
+    margin-right: 5px;
+    color: #bbb;
+    cursor: pointer;
+}
+
+.star-rating label:hover,
+.star-rating label:hover~label,
+.star-rating input[type="radio"]:checked~label {
+    color: #f7d42a;
+}
+
+
+.container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.review-box {
+    max-width: 400px;
+    margin: 15% auto;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input,
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.btngivereview {
+    padding: 10px 20px;
+    background-color: #2190ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btngivereview:hover {
+    background-color: #539be4;
+}
+
+.star {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.star:hover {
+    transform: scale(1.2);
+}
+
+.star.filled {
+    color: gold;
+}
+
+.star.clicked {
+    transform: scale(1.4);
+    color: gold;
+}

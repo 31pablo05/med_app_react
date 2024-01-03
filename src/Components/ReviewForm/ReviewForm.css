@@ -1,0 +1,11 @@
+.reviews-container {
+    margin: 10%;
+    padding: 20px;   
+   }
+   th {
+       padding: 10px;
+       background-color: lightgray;
+   }
+   .report-table {
+       width: 80%;
+   }
