@@ -37,11 +37,11 @@ const ReviewForm = () => {
     };
     const navigate = useNavigate();
     useEffect(() => {
-        //   const authtoken = sessionStorage.getItem("auth-token");
-        //   if (!authtoken) {
-        //       navigate("/login");
-        //   }
-    }, [])
+           const authtoken = sessionStorage.getItem("auth-token");
+           if (!authtoken) {
+           navigate("/login");
+          }
+    }, [navigate])
     return (
         <div style={{ marginTop: '10%' }} className="reviews-container">
             <h1>Reviews</h1>
