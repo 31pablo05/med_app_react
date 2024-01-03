@@ -1,24 +1,44 @@
 .container {
-    max-width: 900px;
+    max-width: 500px;
     margin: 0 auto;
     padding: 40px;
-    margin-top: 10%;
-   
+    margin-top: 10%;   
   }
 
-  
+  .login h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #3c79a7;
+    letter-spacing:.1em;
+  }  
+
+  .login-text {
+    margin-top: 30px;    
+    text-align: center;
+  }
+
+  .login-text1 {    
+    text-align: center;
+  }
+
+  .login-text1  span{
+    color: #3c79a7;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
   .form-group {
     margin-bottom: 20px;
   }
-  
+
   .form-group label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
   }
-  
+
   .form-control {
-    width: 40%;
+    width: 100%;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ccc;

@@ -1,32 +1,36 @@
-
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './App.css';
 import Navbar from './Components/Navbar/Navbar';
-import Login from './Components/Login/Login';
+import LandingPage from './Components/Landing_Page/LandingPage';
 import SignUp from './Components/SignUp/SignUp';
-import LandingPage from './Components/LandingPage/LandingPage';
-import InstantConsultationBooking from './Components/InstantConsultationBooking/InstantConsultation';
-
+import Login from './Components/Login/Login';
+import InstantConsultation from './Components/InstantConsultationBooking/InstantConsultation';
+import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch';
+import BookingConsultation from './Components/BookingConsultation';
+import Notification from './Components/Navbar/Notification/Notification';
+import ReviewFrom from './Components/ReviewForm/ReviewForm';
+import ProfileForm from './Components/ProfileCard/ProfileCard';
+import ReportsLayout from './Components/ReportsLayout/ReportsLayout';
 
 function App() {
-
-  return (
-    <div className="App">
-        <BrowserRouter>
-          <Navbar/>
-              <Routes>
-              <Route path="/instantConsultation" element={<InstantConsultationBooking />} />
-              <Route path="/Login" element={<Login/>}/>
-              <Route path="/SignUp" element={<SignUp/>}/>
-              <Route path="/Navbar" element={<Navbar/>}/>
-              <Route path="/LandingPage" element={<LandingPage/>}/>
-              </Routes>
-            
-        </BrowserRouter>
-       
-    </div>
-  );
+    return (
+        <div className="App">
+            <BrowserRouter>
+                <Notification>
+                    <Navbar />
+                    <Routes>
+                        <Route path="/LandingPage" element={<LandingPage />} />
+                        <Route path="/SignUp" element={<SignUp />} />
+                        <Route path="/Login" element={<Login />} />
+                        <Route path="/instant-consultation" element={<InstantConsultation />} />
+                        <Route path='/finddoctor' element={<FindDoctorSearch />} />
+                        <Route path='/search/doctors' element={<BookingConsultation />} />
+                        <Route path='/reviews' element={<ReviewFrom />} />
+                        <Route path='/profile' element={<ProfileForm />} />
+                        <Route path='/reports' element={<ReportsLayout />} />                    </Routes>
+                </Notification>
+            </BrowserRouter>
+        </div>
+    );
 }
-
 export default App;
