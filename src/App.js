@@ -13,6 +13,25 @@ import ProfileForm from './Components/ProfileCard/ProfileCard';
 import ReportsLayout from './Components/ReportsLayout/ReportsLayout';
 
 function App() {
+        useEffect(() => {
+            // Simulación de una operación asincrónica, por ejemplo, una llamada a una API
+            const fetchData = async () => {
+                try {
+                    const response = await fetch('https://api.example.com/data');
+                    const data = await response.json();
+                    console.log('Datos obtenidos:', data);
+                    // Puedes realizar más acciones con los datos aquí
+                } catch (error) {
+                    console.error('Error al obtener datos:', error);
+                }
+            };
+    
+            fetchData();  // Llamada a la función para obtener datos cuando el componente se monta
+    
+            // Puedes realizar otras operaciones de limpieza o configuración aquí si es necesario
+    
+        }, []); 
+
     return (
         <div className="App">
             <BrowserRouter>
