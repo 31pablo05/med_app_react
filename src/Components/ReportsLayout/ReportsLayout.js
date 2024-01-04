@@ -9,7 +9,7 @@ const ReportsLayout = () => {
         if (!authtoken) {
             navigate("/login");
         }
-    }, []);
+    }, [navigate]);
     // Sample report data 
     const reportData = [
         {
