@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {  } from 'react-router-dom';
-import AppointmentForm from '../InstantConsultationBooking/AppointmentFormIC/AppointmentFormIC';
+import { Link } from 'react-router-dom';
+import AppointmentForm from '../AppointmentForm/AppointmentForm';
 import { v4 as uuidv4 } from 'uuid';
 import Popup from 'reactjs-popup';
-
 
 const DoctorCard = ({ name, speciality, experience, clinic, ratings, profilePic }) => {
     const [showModal, setShowModal] = useState(false);

@@ -1,45 +1,36 @@
-// InstantConsultation.js
-import React from 'react';
-import PropTypes from 'prop-types';
+.searchpage-container {
+    max-width: 1200px;
+    margin: auto;
+    margin-top:10%;
+    color: #414146;
+    padding: 0 20px;
+    position: static;
+    width: 100%;
+}
+.searchpage-container img {
+    max-width: 100%;
+}
+.search-results-container .doctorcard{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 18px;
+    border-radius: 4px;
+    background-color: #fff;
 
-/**
- * Componente para mostrar una lista de médicos filtrados.
- * @param {Object[]} filteredDoctors - Lista de médicos filtrados.
- * @returns {JSX.Element} - Elemento de React para mostrar la lista de médicos.
- */
-function InstantConsultation({ filteredDoctors }) {
-  return (
-    <div>
-      <h2>Instant Consultation</h2>
-      {filteredDoctors.length === 0 ? (
-        <p>No hay médicos disponibles en este momento.</p>
-      ) : (
-        <ul>
-          {filteredDoctors.map((doctor) => (
-            <li key={doctor.id}>
-              <div>
-                <h3>{doctor.name || 'Nombre no disponible'}</h3>
-                <p>Especialidad: {doctor.speciality || 'Especialidad no disponible'}</p>
-                {/* Agrega más detalles del médico según sea necesario */}
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-      {/* Agrega más contenido según sea necesario */}
-    </div>
-  );
 }
 
-InstantConsultation.propTypes = {
-  filteredDoctors: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string,
-      speciality: PropTypes.string,
-      // Agrega más propTypes según sea necesario
-    })
-  ).isRequired,
-};
+.search-results-container>h2 {
+    text-align: left;
+    font-size: 24px;
+    font-weight: 700;
+}
 
-export default InstantConsultation;
+.search-results-container>h3 {
+    margin-top: 12px;
+    color: #2d2d32;
+    text-align: left;
+    font-size: 15px;
+}
