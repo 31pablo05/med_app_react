@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './BookingConsultation.css';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import FindDoctorSearch from './FindDoctorSearch/FindDoctorSearch';
@@ -10,18 +10,17 @@ const BookingConsultation = () => {
     const [filteredDoctors, setFilteredDoctors] = useState([]);
     const [isSearched, setIsSearched] = useState(false);
 
-    const getDoctorsDetails = () => {
+    const navigate = useNavigate();
+
+    const getDoctorsDetails = useCallback(() => {
         fetch('https://api.npoint.io/9a5543d36f1460da2f63')
             .then(res => res.json())
             .then(data => {
                 if (searchParams.get('speciality')) {
-                    // window.reload()
                     const filtered = data.filter(doctor => doctor.speciality.toLowerCase() === searchParams.get('speciality').toLowerCase());
-
                     setFilteredDoctors(filtered);
-
                     setIsSearched(true);
-                    window.reload()
+                    window.location.reload();  // Fix: Use window.location.reload()
                 } else {
                     setFilteredDoctors([]);
                     setIsSearched(false);
@@ -29,34 +28,34 @@ const BookingConsultation = () => {
                 setDoctors(data);
             })
             .catch(err => console.log(err));
-    }
-    const handleSearch = (searchText) => {
+    }, [searchParams]);
 
+    const handleSearch = (searchText) => {
         if (searchText === '') {
             setFilteredDoctors([]);
             setIsSearched(false);
         } else {
-
             const filtered = doctors.filter(
                 (doctor) =>
-                    // 
                     doctor.speciality.toLowerCase().includes(searchText.toLowerCase())
-
             );
 
             setFilteredDoctors(filtered);
             setIsSearched(true);
-            window.location.reload()
+            // window.location.reload(); // Check if this is necessary
         }
     };
-    const navigate = useNavigate();
+
     useEffect(() => {
-        getDoctorsDetails();
-        // const authtoken = sessionStorage.getItem("auth-token");
-        // if (!authtoken) {
-        //     navigate("/login");
-        // }
-    }, [searchParams])
+        // Función interna para utilizar las variables en el efecto
+        const fetchDataAndNavigate = async () => {
+            await getDoctorsDetails();
+            // Puedes utilizar navigate aquí si es necesario
+            // navigate('/otra-ruta');
+        };
+
+        fetchDataAndNavigate();
+    }, [searchParams, getDoctorsDetails, navigate]);  // Solo se incluye searchParams en el array 
 
     return (
         <center>
@@ -79,7 +78,7 @@ const BookingConsultation = () => {
                 </div>
             </div>
         </center>
-    )
+    );
 }
 
 export default BookingConsultation;

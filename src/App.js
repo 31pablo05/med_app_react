@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
 import LandingPage from './Components/Landing_Page/LandingPage';
 import SignUp from './Components/SignUp/SignUp';
@@ -8,7 +8,7 @@ import InstantConsultation from './Components/InstantConsultationBooking/Instant
 import FindDoctorSearch from './Components/FindDoctorSearch/FindDoctorSearch';
 import BookingConsultation from './Components/BookingConsultation';
 import Notification from './Components/Notification/Notification';
-import ReviewFrom from './Components/ReviewForm/ReviewForm';
+import ReviewForm from './Components/ReviewForm/ReviewForm'; // Fix the import statement
 import ProfileForm from './Components/ProfileCard/ProfileCard';
 import ReportsLayout from './Components/ReportsLayout/ReportsLayout';
 
@@ -23,14 +23,16 @@ function App() {
                         <Route path="/SignUp" element={<SignUp />} />
                         <Route path="/Login" element={<Login />} />
                         <Route path="/instant-consultation" element={<InstantConsultation />} />
-                        <Route path='/finddoctor' element={<FindDoctorSearch />} />
-                        <Route path='/search/doctors' element={<BookingConsultation />} />
-                        <Route path='/reviews' element={<ReviewFrom />} />
-                        <Route path='/profile' element={<ProfileForm />} />
-                        <Route path='/reports' element={<ReportsLayout />} />                    </Routes>
+                        <Route path="/finddoctor" element={<FindDoctorSearch />} />
+                        <Route path="/search/doctors" element={<BookingConsultation />} />
+                        <Route path="/reviews" element={<ReviewForm />} />
+                        <Route path="/profile" element={<ProfileForm />} />
+                        <Route path="/reports" element={<ReportsLayout />} />
+                    </Routes>
                 </Notification>
             </BrowserRouter>
         </div>
     );
 }
+
 export default App;

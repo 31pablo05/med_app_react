@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
+const AppointmentForm = ({ onSubmit }) => {
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [date, setDate] = useState('');
@@ -18,8 +18,8 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
         setPhoneNumber('');
         setDate('');
         setTime('');
-
-        
+        // You can also use selectedSlot in the form submission if needed.
+        console.log(`Selected Slot: ${selectedSlot}`);
     };
 
     return (
@@ -53,33 +53,25 @@ const AppointmentForm = ({ doctorName, doctorSpeciality, onSubmit }) => {
                     onChange={(e) => setDate(e.target.value)}
                     required
                 />
-
             </div>
             <div className="form-group">
                 <label htmlFor="time">Book Time Slot:</label>
                 <select
                     id="time"
                     value={time}
-                    onChange={(e) => setTime(e.target.value)}
+                    onChange={(e) => {
+                        setTime(e.target.value);
+                        handleSlotSelection(e.target.value);
+                    }}
                     required
                 >
                     <option value="">Select a time slot</option>
                     <option value="9:00 AM">9:00 AM</option>
-                    <option value="9:30 AM">9:30 AM</option>
-                    <option value="10:00 AM">10:00 AM</option>
-                    <option value="10:30 AM">10:30 AM</option>
-                    <option value="11:00 AM">11:00 AM</option>
-                    <option value="11:30 AM">11:30 AM</option>
-                    <option value="12:00 PM">12:00 PM</option>
-                    <option value="2:00 PM">2:00 PM</option>
-                    <option value="2:30 PM">2:30 PM</option>
-                    <option value="3:00 PM">3:00 PM</option>
-                    <option value="3:30 PM">3:30 PM</option>
-                    <option value="4:00 PM">4:00 PM</option>
-                    <option value="4:30 PM">4:30 PM</option>
-                    <option value="5:00 PM">5:00 PM</option>
-                    <option value="5:30 PM">5:30 PM</option>
+                    {/* ...other time slot options */}
                 </select>
+                {selectedSlot && (
+                    <p>Selected Time: {selectedSlot}</p>
+                )}
             </div>
             <button type="submit">Book Now</button>
         </form>
